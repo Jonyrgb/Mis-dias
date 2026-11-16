@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f9f6">
+  <meta name="description" content="Una forma sencilla y amable de organizar tus objetivos diarios.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Mi Día</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">✓</div>
+      <div><p class="eyebrow">TU ESPACIO PERSONAL</p><h1>Mi Día</h1></div>
+      <button id="installBtn" class="icon-button install hidden" aria-label="Instalar aplicación" title="Instalar">↓</button>
+    </header>
+
+    <section id="onboarding" class="screen hidden">
+      <p class="eyebrow">PRIMEROS PASOS</p>
+      <h2>Construyamos tu rutina</h2>
+      <p class="muted">Agrega las cosas que quieres tener presentes cada día. No tienen que ser muchas; puedes cambiarlas cuando quieras.</p>
+      <div id="setupGoals" class="goal-list"></div>
+      <form id="setupForm" class="add-form">
+        <input id="setupInput" maxlength="90" autocomplete="off" placeholder="Ej. Caminar 20 minutos" aria-label="Nuevo objetivo">
+        <button class="primary add" type="submit" aria-label="Agregar objetivo">+</button>
+      </form>
+      <button id="startBtn" class="primary wide">Guardar mi rutina</button>
+      <p class="tiny muted center">Puedes comenzar con pocos objetivos. Siempre podrás agregar más adelante.</p>
+    </section>
+
+    <section id="mainScreen" class="screen hidden">
+      <nav class="tabs" aria-label="Secciones">
+        <button class="tab active" data-page="today">Mi día</button>
+        <button class="tab" data-page="history">Historial</button>
+        <button class="tab" data-page="settings">Ajustes</button>
+      </nav>
+
+      <section id="todayPage" class="page">
+        <p class="eyebrow" id="todayDate"></p>
+        <h2>Un paso a la vez.</h2>
+        <div class="progress-card">
+          <div class="progress-head"><strong id="progressCount">0 de 0</strong><span id="progressPercent">0%</span></div>
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          <p id="progressMessage" class="muted small">Cada pequeño avance cuenta.</p>
+        </div>
+        <div class="section-heading"><h3>Pendientes</h3><span id="pendingCount" class="count">0</span></div>
+        <div id="pendingList" class="goal-list"></div>
+        <p id="pendingEmpty" class="empty hidden">No tienes pendientes. ¡Bien hecho! 🌱</p>
+        <div class="section-heading completed-heading"><h3>Realizados</h3><span id="doneCount" class="count">0</span></div>
+        <div id="doneList" class="goal-list"></div>
+        <p id="doneEmpty" class="empty">Cuando completes un objetivo, aparecerá aquí.</p>
+        <button id="todayAddBtn" class="secondary wide">＋ Agregar objetivo para hoy</button>
+      </section>
+
+      <section id="historyPage" class="page hidden">
+        <p class="eyebrow">TUS AVANCES</p><h2>Mi historial</h2>
+        <p class="muted">Mira tus días anteriores sin juzgarte. Cada día es una nueva oportunidad.</p>
+        <div id="historyList" class="history-list"></div>
+        <p id="historyEmpty" class="empty">Todavía no hay días guardados. Tu historial aparecerá aquí al terminar el día.</p>
+      </section>
+
+      <section id="settingsPage" class="page hidden">
+        <p class="eyebrow">PERSONALIZA TU RUTINA</p><h2>Objetivos diarios</h2>
+        <p class="muted">Estos objetivos se repiten cada día. Los cambios se aplican desde hoy; el historial conserva los nombres y resultados anteriores.</p>
+        <div id="settingsList" class="goal-list"></div>
+        <button id="settingsAddBtn" class="secondary wide">＋ Agregar objetivo permanente</button>
+        <div class="note-card"><strong>Reinicio diario</strong><p class="muted small">A las 00:00, según la hora de tu teléfono, los objetivos vuelven a estar pendientes y el día anterior queda guardado en el historial.</p></div>
+        <button id="exportBtn" class="text-button">Exportar una copia de mis datos</button>
+      </section>
+    </section>
+
+    <footer class="footer">Hecho para avanzar a tu propio ritmo.</footer>
+  </main>
+
+  <dialog id="goalDialog" class="dialog">
+    <form method="dialog" id="goalForm">
+      <h3 id="dialogTitle">Nuevo objetivo</h3>
+      <input id="goalInput" maxlength="90" autocomplete="off" placeholder="¿Qué quieres hacer?" aria-label="Nombre del objetivo">
+      <div class="dialog-actions"><button type="button" id="cancelDialog" class="secondary">Cancelar</button><button type="submit" class="primary">Guardar</button></div>
+    </form>
+  </dialog>
+  <dialog id="dayDialog" class="dialog">
+    <form method="dialog"><h3 id="dayTitle">Detalle del día</h3><div id="dayDetail"></div><div class="dialog-actions"><button class="primary">Cerrar</button></div></form>
+  </dialog>
+  <input id="importFile" type="file" accept="application/json" hidden>
+  <script src="app.js"></script>
+</body>
+</html>
